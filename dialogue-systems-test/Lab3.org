@@ -34,14 +34,14 @@
    #+begin_src sh
    yarn
    #+end_src
-5. Create a file called ~azure.ts~ in ~src/~ folder 
+5. Create a file called ~azure.ts~ in ~src/~ folder:
    #+begin_src sh
    cd src/
    #+end_src
    #+begin_src sh
    touch azure.ts
    #+end_src
-   with the following content inside:
+   Add the following content inside:
    #+begin_src typescript
    export const KEY = "paste your KEY 1 here";
    #+end_src
@@ -50,7 +50,7 @@
    #+begin_src sh
    yarn dev
    #+end_src
-7. Open the link that was shown in your browser,
+7. Open the link that was shown, in your browser,
    e.g. http://localhost:5173/
 8. Allow access to you microphone.
 9. When you unblock the pop-up window, and reload the page you will
@@ -107,6 +107,6 @@ Git docs:
   this repository)
 - On GitHub page of your repository, click *Contribute* -> *Open pull
   request*. Then click on *Create pull request*. Change the title to "Lab
-  2 submission" (if you want to ask a question about your code, use
-  the title "Lab 2 work in progress"). Click on *Create pull request*.
+  3 submission" (if you want to ask a question about your code, use
+  the title "Lab 3 work in progress"). Click on *Create pull request*.
 - On Canvas, submit URL to the pull request that you just created.
