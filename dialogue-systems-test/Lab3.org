@@ -25,6 +25,7 @@
 1. Install [[https://nodejs.org/en/download/][NodeJS]] (LTS version) and Yarn if you haven't already.
 2. Fork the example project (this project):
    https://github.com/GU-CLASP/dialogue-systems-1-2026
+
    Clone your fork to your machine.
 3. Go to the =labs/lab3/Code/= folder.
    #+begin_src sh
