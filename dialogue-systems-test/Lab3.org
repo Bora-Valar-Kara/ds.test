@@ -10,16 +10,16 @@
 2. Make sure that you are logged into the Azure portal (https://portal.azure.com/).
 3. Create a *Resource group* (you can use search field):
    - Subscription: *Azure for students*
-   - Resource group: any name
+   - Resource group: *RG-GU* (or any name)
    - Region: *(Europe) North Europe*
-4. Create a *Speech service*:
+4. Create a *Speech service* (you can use search field):
    - Name: any name
    - Subscription: *Azure for students*
    - Location: *(Europe) North Europe*
    - Pricing tier: *Free (F0)*
-   - Resource group: group name from the previous step
-5. Within your Speech Service go to: *Resourse management → Keys and
-   Endpoint* and save your KEY 1.
+   - Resource group: *RG-GU* (or the same group name from the previous step)
+5. Within your Speech Service go to: *Resource management → Keys and
+   Endpoint* and save your *KEY 1* value.
    
 ** Preflight step 2. Run the example project
 1. Install [[https://nodejs.org/en/download/][NodeJS]] (LTS version) and [[Download and https://yarnpkg.com/getting-started/install][Yarn]] 
