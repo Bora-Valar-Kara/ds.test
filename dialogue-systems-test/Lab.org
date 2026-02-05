@@ -54,7 +54,7 @@
 
 ** Task 1. "Appointment"
 #+CAPTION: Flowchart for creating an appointment
-[[./img/flowchart.png]]
+[[flowchart.png]]
 
 *In this task you will need to implement the flowchart above.*
 
