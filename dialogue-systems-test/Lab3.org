@@ -53,7 +53,7 @@
    #+begin_src sh
    cat .gitignore
    #+end_src
-   Add azure.ts file with its relative location to ".gitignore" file.
+   Add azure.ts file to ".gitignore" file while specifying its relative location:
    #+begin_src sh
    echo "src/azure.ts" >> .gitignore
    #+end_src
