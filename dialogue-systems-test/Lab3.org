@@ -1,6 +1,6 @@
 #+OPTIONS: num:nil
 
-#+TITLE: Lab #3 | Basic dialogue management
+#+TITLE: Lab 3 | Basic dialogue management
 
 * Getting started with development environment
 ** Preflight step 1. Create Azure account and enable speech services
