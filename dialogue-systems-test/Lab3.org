@@ -34,12 +34,19 @@
    #+begin_src sh
    yarn
    #+end_src
-5. Create a file called ~azure.ts~ in ~src/~ folder with the following content:
+5. Create a file called ~azure.ts~ in ~src/~ folder 
+   #+begin_src sh
+   cd src/
+   #+end_src
+   #+begin_src sh
+   touch azure.ts
+   #+end_src
+   with the following content inside:
    #+begin_src typescript
    export const KEY = "paste your KEY 1 here";
    #+end_src
-   (Note: Don't add this file to version control.)
-6. Run the project:
+   (Note: Don't add this file to version control. ".gitignore" file does it for you. Check that file and see which files are not added to version control.)
+6. Test the project:
    #+begin_src sh
    yarn dev
    #+end_src
