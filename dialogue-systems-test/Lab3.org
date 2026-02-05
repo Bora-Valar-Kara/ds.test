@@ -27,11 +27,11 @@
    https://github.com/GU-CLASP/dialogue-systems-1-2026. Clone your
    fork to your machine.
 3. Go to the =labs/lab3/Code/= folder.
-   #+begin_src
+   #+begin_src sh
    cd labs/lab3/Code/
    #+end_src
 4. Install all dependencies:
-   #+begin_src
+   #+begin_src sh
    yarn
    #+end_src
 5. Create a file called ~azure.ts~ in ~src/~ folder with the following content:
