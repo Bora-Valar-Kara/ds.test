@@ -91,7 +91,7 @@ project that you forked before:
    of your app.
  - Fix a couple of them and briefly describe your solution in the
    report. You don't have to fix all the limitations.
- - Add your report to the repository in PDF format (=report-lab2.pdf=)
+ - Add your report to the repository in PDF format (=report-lab3.pdf=)
 
 
 * Resources
