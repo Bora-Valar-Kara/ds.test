@@ -22,7 +22,7 @@
    Endpoint* and save your *KEY 1* value. You will need it later. This is a personal key that should be only visible to you.
    
 ** Preflight step 2. Run the example project
-1. Install [[https://nodejs.org/en/download/][NodeJS]] (LTS version) and [[Download and https://yarnpkg.com/getting-started/install][Yarn]] 
+1. Install [[https://nodejs.org/en/download/][NodeJS]] (LTS version) and [[Download and https://yarnpkg.com/getting-started/install][Yarn]] if you haven't already.
 2. Fork the example project (this project):
    https://github.com/GU-CLASP/dialogue-systems-1-2025. Clone your
    fork to your machine.
