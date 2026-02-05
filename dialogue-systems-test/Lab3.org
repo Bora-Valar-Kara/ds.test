@@ -47,7 +47,7 @@
    #+end_src
    You can do it via terminal:
    #+begin_src sh
-   echo "export const KEY = "paste your KEY 1 here";" >> azure.ts
+   echo 'export const KEY = "paste your KEY 1 here";' >> azure.ts
    #+end_src
    (Note: Don't add this file to version control. ".gitignore" file does it for you. Check that file and see which files are not added to version control.)
 6. Test the project:
