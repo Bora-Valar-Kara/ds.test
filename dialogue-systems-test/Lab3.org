@@ -49,7 +49,10 @@
    #+begin_src sh
    echo 'export const KEY = "paste your KEY 1 here";' >> azure.ts
    #+end_src
-   (Note: Don't add this file to version control. ".gitignore" file does it for you. Check that file and see which files are not added to version control.)
+   (Note: Don't add this file to version control. ".gitignore" file does it for you. Check where that file is located and see which files are not added to version control. Add azure.ts file with its relative location to ".gitignore" file.)
+   #+begin_src sh
+   echo "src/azure.ts" >> .gitignore
+   #+end_src
 6. Test the project:
    #+begin_src sh
    yarn dev
