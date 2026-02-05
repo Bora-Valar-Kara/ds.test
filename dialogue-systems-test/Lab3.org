@@ -57,7 +57,7 @@
    #+begin_src sh
    echo "src/azure.ts" >> .gitignore
    #+end_src
-   (Note: Using echo command with single ">" will overwrite the file! As a rule of thumb, be very careful when using this command! For example, =echo "src/azure.ts" > .gitignore= will overwrite everything inside that file!)
+   (Note: Using =echo= command with a single ">" will overwrite the file! As a rule of thumb, be very careful when using this command! For example, =echo "src/azure.ts" > .gitignore= will overwrite everything inside ".gitignore" file!)
 6. Test the project:
    #+begin_src sh
    yarn dev
