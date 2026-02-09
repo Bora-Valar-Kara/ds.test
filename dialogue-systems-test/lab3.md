@@ -7,9 +7,7 @@ Navigate to home folder (for us to easily troubleshoot when necessary):
 cd
 ```
 
-## Prerequisites
-
-- Node.js and npm should be installed on your system. Please check:
+Node.js and npm should be installed on your system. Please check:
 ```bash
 node -v
 ```
