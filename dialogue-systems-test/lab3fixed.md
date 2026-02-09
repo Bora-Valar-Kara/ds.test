@@ -102,15 +102,15 @@ This should give an output, something like: 11.8.0
 
 11. Error handling:
 
-## `The requested module does not provide an export named 'AnyActorRef'`
+`The requested module does not provide an export named 'AnyActorRef'`
 
-If you see this error for some reason Vite carrying over cache from your previous attempts, try and clear Vite's cache:
+If you see this type of error because for some reason Vite carrying over cache from your previous attempts, try and clear Vite's cache:
 ```bash
 rm -rf node_modules/.vite
 npm run dev
 ```
 
-## Package installation issues
+Package installation issues:
 
 If you encounter dependency conflicts:
 ```bash
