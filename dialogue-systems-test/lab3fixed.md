@@ -1,4 +1,5 @@
-# Lab 3 | Basic dialogue management | Fixed (Only npm, no more yarn)
+# Lab 3 | Basic dialogue management
+# Fixed (Only npm, no more yarn)
 
 ## Getting started with development environment
 
