@@ -72,18 +72,18 @@ Now we will create the source files for our lab. You can create these files usin
 
 This file will store your Azure credentials.
 
-**File:** `src/azure.ts`
+**File location:** `Code/src/azure.ts`
 ```typescript
-export const KEY = "your-key";
+export const KEY = "YOUR_KEY";
 ```
 
-Replace `your-key` with your actual Azure Speech Service key.
+Replace `YOUR_KEY` with your actual Azure Speech Service key.
 
 ### 4.2 Create `types.ts`
 
-This file contains TypeScript type definitions for our dialogue manager.
+This file contains TypeScript type definitions for our dm --> dialogue manager/machine.
 
-**File:** `src/types.ts`
+**File location:** `Code/src/types.ts`
 ```typescript
 import type { Hypothesis, SpeechStateExternalEvent } from "speechstate";
 import type { ActorRef } from "xstate";
@@ -98,9 +98,9 @@ export type DMEvents = SpeechStateExternalEvent | { type: "CLICK" } | { type: "D
 
 ### 4.3 Create `dm.ts`
 
-This is the main dialogue manager file containing the state machine logic.
+This is our main dialogue manager/machine file with the state machine logic.
 
-**File:** `src/dm.ts`
+**File location:** `Code/src/dm.ts`
 ```typescript
 import { assign, createActor, setup } from "xstate";
 import type { Settings } from "speechstate";
@@ -267,15 +267,14 @@ export function setupButton(element: HTMLButtonElement) {
 }
 ```
 
-**Important:** Replace `YOUR_REGION` with your Azure region (e.g., `northeurope`, `westus`, `eastus`). This appears in two places:
+Replace `YOUR_REGION` with your Azure region (e.g., `northeurope`, `swedencentral` ...). Check two places:
 1. In the `endpoint` URL
 2. In the `azureRegion` setting
 
-### 4.4 Update `main.ts`
+### 4.4 Create `main.ts`
 
-Replace the contents of the existing `main.ts` file with:
+Same location with:
 
-**File:** `src/main.ts`
 ```typescript
 import "./style.css";
 import { setupButton } from "./dm.ts";
@@ -291,11 +290,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 setupButton(document.querySelector<HTMLButtonElement>("#counter")!);
 ```
 
-### 4.5 Update `style.css`
+### 4.5 Create `style.css`
 
-Replace the contents of the existing `style.css` file with:
+Same location:
 
-**File:** `src/style.css`
 ```css
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -398,62 +396,42 @@ button:focus-visible {
 }
 ```
 
-## Step 5: Verify Your File Structure
+## Step 5: Check Your File System
 
 Navigate back to the project root:
 ```bash
 cd ..
 ```
 
-Your `src` directory should now contain these files:
+Your `src` directory should now have these files:
 ```
 src/
 ├── azure.ts
 ├── dm.ts
 ├── main.ts
 ├── style.css
-├── typescript.svg
 ├── types.ts
-└── vite-env.d.ts
 ```
 
 ## Step 6: Run the Development Server
 
-Start the Vite development server:
 ```bash
 npm run dev
 ```
 
-The terminal will display a local URL (usually `http://localhost:5173/`). Open this URL in your web browser.
+O + Enter (to quickly open it in your default browser)
 
-## Step 7: Test the Application
+Did it work?
 
-1. Open your browser's developer console (F12 or right-click → Inspect)
-2. Click the button on the page
-3. Grant microphone permissions when prompted
-4. The system will greet you with "Hello world!"
-5. Try saying one of the names from the grammar (e.g., "Bora", "Vlad", "Tom")
-6. The system will confirm what you said and whether it's in the grammar
-
-## Troubleshooting
+## Error handling:
 
 ### Error: `The requested module does not provide an export named 'AnyActorRef'`
 
-If you see this error, clear Vite's cache:
+If you see this error for some reason Vite carrying over cache from your previous attempts, try and clear Vite's cache:
 ```bash
 rm -rf node_modules/.vite
 npm run dev
 ```
-
-### Error: TypeScript import errors with `verbatimModuleSyntax`
-
-Make sure you're using `import type` for type-only imports as shown in the code examples above.
-
-### Audio/Microphone not working
-
-1. Ensure you've granted microphone permissions to your browser
-2. Check that your Azure credentials are correct
-3. Verify your Azure region is correctly specified in both locations in `dm.ts`
 
 ### Package installation issues
 
@@ -462,60 +440,3 @@ If you encounter dependency conflicts:
 rm -rf node_modules package-lock.json
 npm install
 ```
-
-## Understanding the Code
-
-### State Machine Structure
-
-The dialogue manager uses XState to create a state machine with the following states:
-
-- **Prepare**: Initializes the speech services
-- **WaitToStart**: Waits for user to click the button
-- **Greeting**: Speaks "Hello world!" and listens for input
-  - **Prompt**: Initial greeting
-  - **NoInput**: Handles when no speech is detected
-  - **Ask**: Listens for user input
-- **CheckGrammar**: Verifies if the user's utterance is in the grammar
-- **Done**: Final state, can restart by clicking again
-
-### Grammar System
-
-The `grammar` object defines recognized utterances:
-```typescript
-const grammar = {
-  vlad: { person: "Vladislav Maraev" },
-  bora: { person: "Bora Kara" },
-  // ... more entries
-};
-```
-
-You can extend this grammar by adding more entries.
-
-### Speech Actions
-
-Two main actions control speech:
-
-- `spst.speak`: Makes the system speak text
-- `spst.listen`: Activates speech recognition
-
-## Next Steps
-
-Now that you have a working dialogue system, you can:
-
-1. Extend the grammar with more entries
-2. Add new states to create more complex dialogues
-3. Implement different conversation flows
-4. Add more sophisticated natural language understanding
-5. Customize the voice and speech settings
-
-## Additional Resources
-
-- [XState Documentation](https://xstate.js.org/)
-- [Vite Documentation](https://vitejs.dev/)
-- [Azure Speech Services Documentation](https://docs.microsoft.com/azure/cognitive-services/speech-service/)
-
----
-
-**Need Help?**
-
-If you encounter issues not covered in the troubleshooting section, please contact your instructor or refer to the course materials.
