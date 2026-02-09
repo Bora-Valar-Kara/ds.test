@@ -11,12 +11,12 @@
 3. Create a **Resource group** (you can use search field):
    - Subscription: *Azure for students*
    - Resource group: *RG-GU-1* (or any name)
-   - Region: *(Europe) North Europe*
+   - Region: *(Europe) North Europe* (another region if you can't create North Europe)
 
 4. Create a **Speech service** (you can use search field):
    - Name: *SpeechService1* (or any name)
    - Subscription: *Azure for students*
-   - Location: *(Europe) North Europe*
+   - Location: *(Europe) North Europe* (same region from before)
    - Pricing tier: *Free (F0)*
    - Resource group: *RG-GU-1* (or the same group name from the previous step)
 
@@ -24,18 +24,20 @@
 
 ### Preflight step 2. Run the example project
 
-1. Install [NodeJS](https://nodejs.org/en/download/) (LTS version) and Yarn if you haven't already.
+1. Install [NodeJS](https://nodejs.org/en/download/) (LTS version) if you haven't already.
 
 2. Fork the example project (this project): https://github.com/GU-CLASP/dialogue-systems-1-2026
 
+3. Before cloning, make sure you `Sync fork`
+
    Clone your fork to your machine.
 
-3. Go to the `<name_of_your_fork>/labs/lab3/Code/` folder.
+4. Go to the `<name_of_your_fork>/labs/lab3/Code/` folder.
    ```sh
    cd <name_of_your_fork>/labs/lab3/Code/
    ```
 
-4. Install all dependencies:
+5. Install all dependencies:
    ```sh
    yarn
    ```
