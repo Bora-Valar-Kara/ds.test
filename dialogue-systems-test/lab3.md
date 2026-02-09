@@ -26,9 +26,9 @@ Create a new Vite project using the vanilla TypeScript template:
 npm create vite@latest
 ```
 
-- **Project name:** `Code`
-- **Framework:** Select `Vanilla`
-- **Variant:** Select `TypeScript`
+- **Project name:** Code
+- **Framework:** Select Vanilla
+- **Variant:** Select TypeScript
 - **Experimental Features:** No
 
 Navigate into the project:
