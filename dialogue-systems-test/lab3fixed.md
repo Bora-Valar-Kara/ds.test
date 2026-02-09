@@ -39,6 +39,7 @@ This should give an output, something like: 11.8.0
 1. Fork the example project on GitHub (this project): https://github.com/GU-CLASP/dialogue-systems-1-2026
 
 2. Before cloning, make sure you `Sync fork` and pull the updates if you forked this project before this update (Feb 9)
+
    Navigate to the directory where you want to work (your home directory by default):
    ```sh
    cd
@@ -47,11 +48,11 @@ This should give an output, something like: 11.8.0
    ```sh
    git clone https://github.com/GU-CLASP/dialogue-systems-1-2026.git
    ```
-3. Go to the `<name_of_your_fork>/labs/lab3fixed/Code/` folder.
+4. Go to the `<name_of_your_fork>/labs/lab3fixed/Code/` folder.
    ```sh
    cd <name_of_your_fork>/labs/lab3fixed/Code/
    ```
-4. Install all dependencies:
+5. Install all dependencies:
    ```bash
    npm install
    ```
@@ -60,7 +61,7 @@ This should give an output, something like: 11.8.0
    npm install speechstate@latest
    npm install @statelyai/inspect
    ```
-5. Create a file called `azure.ts` in `src/` folder:
+6. Create a file called `azure.ts` in `src/` folder:
    ```sh
    cd src/
    ```
@@ -85,11 +86,11 @@ This should give an output, something like: 11.8.0
    ```
    (Note: Using `echo` command with a single ">" will overwrite the file! As a rule of thumb, be very careful when using this command! For example, `echo "src/azure.ts" > .gitignore` will overwrite everything inside ".gitignore" file!)
 
-6. Replace `YOUR_REGION` sections inside `dm.ts` file with your Azure region (e.g., `northeurope`, `swedencentral`). Check two places:
+7. Replace `YOUR_REGION` sections inside `dm.ts` file with your Azure region (e.g., `northeurope`, `swedencentral`). Check two places:
       1. In the `endpoint` URL
       2. In the `azureRegion` setting
 
-7. Run the development local server in `Code` directory:
+8. Run the development local server in `Code` directory:
    ```bash
    npm run dev
    ```
