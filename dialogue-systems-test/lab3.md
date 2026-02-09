@@ -17,7 +17,7 @@ npm -v
 ```
 This should give an output, something like: 11.8.0
 
-- An Azure Speech Service KEY from any region
+You also need an Azure Speech Service KEY from any region, check the original Lab 3 documentation for info on that.
 
 ## Step 1: Create a New Vite Project
 
