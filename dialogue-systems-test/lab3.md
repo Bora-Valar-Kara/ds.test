@@ -406,24 +406,12 @@ button:focus-visible {
 }
 ```
 
-## Step 5: Check Your File System
-
 Navigate back to the project root:
 ```bash
 cd ..
 ```
 
-Your `src` directory should now have these files:
-```
-src/
-├── azure.ts
-├── dm.ts
-├── main.ts
-├── style.css
-├── types.ts
-```
-
-## Step 6: Run the Development Server
+## Step 5: Run the Development Server
 
 ```bash
 npm run dev
