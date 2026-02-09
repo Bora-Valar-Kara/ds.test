@@ -72,6 +72,12 @@ For simplicity, you can use nano to create and copy-paste from below. For exampl
 nano azure.ts
 ```
 
+Ctrl + Shift + V --- Paste
+
+Ctrl + O then Enter --- Save
+
+Ctrl + X --- Quit
+
 ### 4.1 Create `azure.ts`
 
 This file will store your Azure credentials.
