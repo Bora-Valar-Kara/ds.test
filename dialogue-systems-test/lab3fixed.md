@@ -2,8 +2,6 @@
 
 ## Getting started with development environment
 
-### Preflight step 1. Create Azure account and enable speech services
-
 Note:
 
 Node.js and npm should be installed on your system. Please check:
@@ -15,6 +13,8 @@ This should give an output, something like: v22.13.1
 npm -v
 ```
 This should give an output, something like: 11.8.0
+
+### Preflight step 1. Create Azure account and enable speech services
 
 1. Apply for free student credits: https://azure.microsoft.com/en-us/free/students/. You should be able to login with your GU account.
 
