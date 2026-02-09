@@ -1,122 +1,513 @@
-# Lab 3 | Basic dialogue management
+# Dialogue System Project Setup Guide
 
-## Getting started with development environment
+This guide will walk you through setting up a dialogue system project using Vite, XState, and Azure Speech Services.
 
-### Preflight step 1. Create Azure account and enable speech services
+## Prerequisites
 
-1. Apply for free student credits: https://azure.microsoft.com/en-us/free/students/. You should be able to login with your GU account.
+- Node.js and npm installed on your system
+- An Azure Speech Services account with a valid API key
+- A terminal/command line interface
 
-2. Make sure that you are logged into the Azure portal (https://portal.azure.com/).
+## Step 1: Create a New Vite Project
 
-3. Create a **Resource group** (you can use search field):
-   - Subscription: *Azure for students*
-   - Resource group: *RG-GU-1* (or any name)
-   - Region: *(Europe) North Europe*
+Open your terminal and navigate to your home directory:
+```bash
+cd ~
+```
 
-4. Create a **Speech service** (you can use search field):
-   - Name: *SpeechService1* (or any name)
-   - Subscription: *Azure for students*
-   - Location: *(Europe) North Europe*
-   - Pricing tier: *Free (F0)*
-   - Resource group: *RG-GU-1* (or the same group name from the previous step)
+Create a new Vite project using the vanilla TypeScript template:
+```bash
+npm create vite@latest
+```
 
-5. Within your Speech Service go to: *Resource management → Keys and Endpoint* and save your *KEY 1* value. You will need it later. This is a personal key that should be only visible to you.
+When prompted:
+- **Project name:** `Code`
+- **Framework:** Select `Vanilla`
+- **Variant:** Select `TypeScript`
 
-### Preflight step 2. Run the example project
+Navigate into your new project:
+```bash
+cd Code
+```
 
-1. Install [NodeJS](https://nodejs.org/en/download/) (LTS version) and Yarn if you haven't already.
+## Step 2: Install Dependencies
 
-2. Fork the example project (this project): https://github.com/GU-CLASP/dialogue-systems-1-2026
+First, install the base dependencies that Vite created:
+```bash
+npm install
+```
 
-   Clone your fork to your machine.
+Then install the additional packages needed for the dialogue system:
+```bash
+npm install xstate
+npm install speechstate@latest
+npm install @statelyai/inspect
+```
 
-3. Go to the `labs/lab3/Code/` folder.
-   ```sh
-   cd labs/lab3/Code/
-   ```
+## Step 3: Clean Up Default Files
 
-4. Install all dependencies:
-   ```sh
-   yarn
-   ```
+Navigate to the `src` directory:
+```bash
+cd src
+```
 
-5. Create a file called `azure.ts` in `src/` folder:
-   ```sh
-   cd src/
-   ```
-   ```sh
-   touch azure.ts
-   ```
-   Add the following content inside:
-   ```typescript
-   export const KEY = "paste your KEY 1 here";
-   ```
-   You can do it via terminal:
-   ```sh
-   echo 'export const KEY = "paste your KEY 1 here";' >> azure.ts
-   ```
-   Don't add this file to version control. ".gitignore" file does it for you. Check where that file is located using `cd` and `ls -la` commands and see which files are not added to version control:
-   ```sh
-   cat .gitignore
-   ```
-   Add azure.ts file to ".gitignore" file while specifying its relative location to ".gitignore":
-   ```sh
-   echo "src/azure.ts" >> .gitignore
-   ```
-   (Note: Using `echo` command with a single ">" will overwrite the file! As a rule of thumb, be very careful when using this command! For example, `echo "src/azure.ts" > .gitignore` will overwrite everything inside ".gitignore" file!)
+Remove the default Vite template files that we won't need:
+```bash
+rm counter.ts vite.svg
+```
 
-6. Test the project:
-   ```sh
-   yarn dev
-   ```
+## Step 4: Create Project Files
 
-7. Open the link that was shown, in your browser, e.g. http://localhost:5173/
+Now we'll create the necessary files for our dialogue system. You can create these files using your preferred text editor.
 
-8. Allow access to your microphone.
+### 4.1 Create `azure.ts`
 
-9. When you unblock the pop-up window, and reload the page you will see the state inspector; this can be useful during development.
+This file will store your Azure credentials.
 
-## Assignment
+**File:** `src/azure.ts`
+```typescript
+export const KEY = "YOUR_AZURE_KEY_HERE";
+```
 
-- **Task 1 ("appointment")**: Implementation of the finite state machine.
-- **Task 2 ("features")**: Add some extra features to your app.
-- **Task 3 ("improvements")**: Describe the limitations of your app and try to fix them.
+**Important:** Replace `YOUR_AZURE_KEY_HERE` with your actual Azure Speech Services API key.
 
-### Task 1. "Appointment"
+### 4.2 Create `types.ts`
 
-![Flowchart for creating an appointment](flowchart.png)
+This file contains TypeScript type definitions for our dialogue manager.
 
-**In this task you will need to implement the flowchart above.**
+**File:** `src/types.ts`
+```typescript
+import type { Hypothesis, SpeechStateExternalEvent } from "speechstate";
+import type { ActorRef } from "xstate";
 
-We have created a starting point for you, so you basically can use the project that you forked before:
-- You will need to edit the state chart defined by `dmMachine` in `./src/dm.ts`:
-- You will need to extend the entities in the grammar (`const grammar`) to understand more names, times and dates.
-- You will also need to add more things in the `context`, see: `./src/types.ts` file.
-- We defined some helper functions that you can use. Feel free to add your own functions.
-- You will also need to create a similar grammar to understand "yes" and "no", but also "of course", "no way" etc.
+export interface DMContext {
+  spstRef: ActorRef<any, any>;
+  lastResult: Hypothesis[] | null;
+}
 
-### Task 2. Additional features
+export type DMEvents = SpeechStateExternalEvent | { type: "CLICK" } | { type: "DONE" };
+```
 
-1. Re-raise the question if the user is not talking or if the entity is not in the grammar.
-2. Try to repeat yourself as little as possible (hint: some of the event handling can be moved to parent states).
+### 4.3 Create `dm.ts`
 
-### Task 3. Improvements (bonus: 1 VG point)
+This is the main dialogue manager file containing the state machine logic.
 
-- Write a report (max 1 page) which describes errors and limitation of your app.
-- Fix a couple of them and briefly describe your solution in the report. You don't have to fix all the limitations.
-- Add your report to the repository in PDF format (`report-lab3.pdf`)
+**File:** `src/dm.ts`
+```typescript
+import { assign, createActor, setup } from "xstate";
+import type { Settings } from "speechstate";
+import { speechstate } from "speechstate";
+import { createBrowserInspector } from "@statelyai/inspect";
+import { KEY } from "./azure";
+import type { DMContext, DMEvents } from "./types";
 
-## Resources
+const inspector = createBrowserInspector();
 
-- [XState documentation](https://stately.ai/docs/)
-- [SpeechState documentation](https://github.com/vladmaraev/speechstate)
+const azureCredentials = {
+  endpoint:
+    "https://YOUR_REGION.api.cognitive.microsoft.com/sts/v1.0/issuetoken",
+  key: KEY,
+};
 
-Git docs:
-- [Getting started with git](https://docs.github.com/en/get-started/quickstart/hello-world)
-- [Working with forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+const settings: Settings = {
+  azureCredentials: azureCredentials,
+  azureRegion: "YOUR_REGION",
+  asrDefaultCompleteTimeout: 0,
+  asrDefaultNoInputTimeout: 5000,
+  locale: "en-US",
+  ttsDefaultVoice: "en-US-DavisNeural",
+};
 
-## Submission
+interface GrammarEntry {
+  person?: string;
+  day?: string;
+  time?: string;
+}
 
-- **Commit** your changes and **push** them to your repository (your fork of this repository)
-- On GitHub page of your repository, click **Contribute** -> **Open pull request**. Then click on **Create pull request**. Change the title to "Lab 3 submission" (if you want to ask a question about your code, use the title "Lab 3 work in progress"). Click on **Create pull request**.
-- On Canvas, submit URL to the pull request that you just created.
+const grammar: { [index: string]: GrammarEntry } = {
+  vlad: { person: "Vladislav Maraev" },
+  bora: { person: "Bora Kara" },
+  tal: { person: "Talha Bedir" },
+  tom: { person: "Tom Södahl Bladsjö" },
+  monday: { day: "Monday" },
+  tuesday: { day: "Tuesday" },
+  "10": { time: "10:00" },
+  "11": { time: "11:00" },
+};
+
+function isInGrammar(utterance: string) {
+  return utterance.toLowerCase() in grammar;
+}
+
+function getPerson(utterance: string) {
+  return (grammar[utterance.toLowerCase()] || {}).person;
+}
+
+const dmMachine = setup({
+  types: {
+    context: {} as DMContext,
+    events: {} as DMEvents,
+  },
+  actions: {
+    "spst.speak": ({ context }, params: { utterance: string }) =>
+      context.spstRef.send({
+        type: "SPEAK",
+        value: {
+          utterance: params.utterance,
+        },
+      }),
+    "spst.listen": ({ context }) =>
+      context.spstRef.send({
+        type: "LISTEN",
+      }),
+  },
+}).createMachine({
+  context: ({ spawn }) => ({
+    spstRef: spawn(speechstate, { input: settings }),
+    lastResult: null,
+  }),
+  id: "DM",
+  initial: "Prepare",
+  states: {
+    Prepare: {
+      entry: ({ context }) => context.spstRef.send({ type: "PREPARE" }),
+      on: { ASRTTS_READY: "WaitToStart" },
+    },
+    WaitToStart: {
+      on: { CLICK: "Greeting" },
+    },
+    Greeting: {
+      initial: "Prompt",
+      on: {
+        LISTEN_COMPLETE: [
+          {
+            target: "CheckGrammar",
+            guard: ({ context }) => !!context.lastResult,
+          },
+          { target: ".NoInput" },
+        ],
+      },
+      states: {
+        Prompt: {
+          entry: { type: "spst.speak", params: { utterance: `Hello world!` } },
+          on: { SPEAK_COMPLETE: "Ask" },
+        },
+        NoInput: {
+          entry: {
+            type: "spst.speak",
+            params: { utterance: `I can't hear you!` },
+          },
+          on: { SPEAK_COMPLETE: "Ask" },
+        },
+        Ask: {
+          entry: { type: "spst.listen" },
+          on: {
+            RECOGNISED: {
+              actions: assign(({ event }) => {
+                return { lastResult: event.value };
+              }),
+            },
+            ASR_NOINPUT: {
+              actions: assign({ lastResult: null }),
+            },
+          },
+        },
+      },
+    },
+    CheckGrammar: {
+      entry: {
+        type: "spst.speak",
+        params: ({ context }) => ({
+          utterance: `You just said: ${context.lastResult![0].utterance}. And it ${
+            isInGrammar(context.lastResult![0].utterance) ? "is" : "is not"
+          } in the grammar.`,
+        }),
+      },
+      on: { SPEAK_COMPLETE: "Done" },
+    },
+    Done: {
+      on: {
+        CLICK: "Greeting",
+      },
+    },
+  },
+});
+
+const dmActor = createActor(dmMachine, {
+  inspect: inspector.inspect,
+}).start();
+
+dmActor.subscribe((state) => {
+  console.group("State update");
+  console.log("State value:", state.value);
+  console.log("State context:", state.context);
+  console.groupEnd();
+});
+
+export function setupButton(element: HTMLButtonElement) {
+  element.addEventListener("click", () => {
+    dmActor.send({ type: "CLICK" });
+  });
+  dmActor.subscribe((snapshot) => {
+    const meta: { view?: string } = Object.values(
+      snapshot.context.spstRef.getSnapshot().getMeta(),
+    )[0] || {
+      view: undefined,
+    };
+    element.innerHTML = `${meta.view}`;
+  });
+}
+```
+
+**Important:** Replace `YOUR_REGION` with your Azure region (e.g., `northeurope`, `westus`, `eastus`). This appears in two places:
+1. In the `endpoint` URL
+2. In the `azureRegion` setting
+
+### 4.4 Update `main.ts`
+
+Replace the contents of the existing `main.ts` file with:
+
+**File:** `src/main.ts`
+```typescript
+import "./style.css";
+import { setupButton } from "./dm.ts";
+
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+  <div>
+    <div class="card">
+      <button id="counter" type="button"></button>
+    </div>
+  </div>
+`;
+
+setupButton(document.querySelector<HTMLButtonElement>("#counter")!);
+```
+
+### 4.5 Update `style.css`
+
+Replace the contents of the existing `style.css` file with:
+
+**File:** `src/style.css`
+```css
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #3178c6aa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+```
+
+## Step 5: Verify Your File Structure
+
+Navigate back to the project root:
+```bash
+cd ..
+```
+
+Your `src` directory should now contain these files:
+```
+src/
+├── azure.ts
+├── dm.ts
+├── main.ts
+├── style.css
+├── typescript.svg
+├── types.ts
+└── vite-env.d.ts
+```
+
+## Step 6: Run the Development Server
+
+Start the Vite development server:
+```bash
+npm run dev
+```
+
+The terminal will display a local URL (usually `http://localhost:5173/`). Open this URL in your web browser.
+
+## Step 7: Test the Application
+
+1. Open your browser's developer console (F12 or right-click → Inspect)
+2. Click the button on the page
+3. Grant microphone permissions when prompted
+4. The system will greet you with "Hello world!"
+5. Try saying one of the names from the grammar (e.g., "Bora", "Vlad", "Tom")
+6. The system will confirm what you said and whether it's in the grammar
+
+## Troubleshooting
+
+### Error: `The requested module does not provide an export named 'AnyActorRef'`
+
+If you see this error, clear Vite's cache:
+```bash
+rm -rf node_modules/.vite
+npm run dev
+```
+
+### Error: TypeScript import errors with `verbatimModuleSyntax`
+
+Make sure you're using `import type` for type-only imports as shown in the code examples above.
+
+### Audio/Microphone not working
+
+1. Ensure you've granted microphone permissions to your browser
+2. Check that your Azure credentials are correct
+3. Verify your Azure region is correctly specified in both locations in `dm.ts`
+
+### Package installation issues
+
+If you encounter dependency conflicts:
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+## Understanding the Code
+
+### State Machine Structure
+
+The dialogue manager uses XState to create a state machine with the following states:
+
+- **Prepare**: Initializes the speech services
+- **WaitToStart**: Waits for user to click the button
+- **Greeting**: Speaks "Hello world!" and listens for input
+  - **Prompt**: Initial greeting
+  - **NoInput**: Handles when no speech is detected
+  - **Ask**: Listens for user input
+- **CheckGrammar**: Verifies if the user's utterance is in the grammar
+- **Done**: Final state, can restart by clicking again
+
+### Grammar System
+
+The `grammar` object defines recognized utterances:
+```typescript
+const grammar = {
+  vlad: { person: "Vladislav Maraev" },
+  bora: { person: "Bora Kara" },
+  // ... more entries
+};
+```
+
+You can extend this grammar by adding more entries.
+
+### Speech Actions
+
+Two main actions control speech:
+
+- `spst.speak`: Makes the system speak text
+- `spst.listen`: Activates speech recognition
+
+## Next Steps
+
+Now that you have a working dialogue system, you can:
+
+1. Extend the grammar with more entries
+2. Add new states to create more complex dialogues
+3. Implement different conversation flows
+4. Add more sophisticated natural language understanding
+5. Customize the voice and speech settings
+
+## Additional Resources
+
+- [XState Documentation](https://xstate.js.org/)
+- [Vite Documentation](https://vitejs.dev/)
+- [Azure Speech Services Documentation](https://docs.microsoft.com/azure/cognitive-services/speech-service/)
+
+---
+
+**Need Help?**
+
+If you encounter issues not covered in the troubleshooting section, please contact your instructor or refer to the course materials.
