@@ -66,6 +66,12 @@ rm -f *
 
 Now we will create the source files for our lab. You can create these files using your preferred text editor.
 
+For simplicity, you can use nano to create and copy-paste from below. For example for azure.ts:
+
+```bash
+nano azure.ts
+```
+
 ### 4.1 Create `azure.ts`
 
 This file will store your Azure credentials.
