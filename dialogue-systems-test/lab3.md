@@ -74,10 +74,10 @@ This file will store your Azure credentials.
 
 **File:** `src/azure.ts`
 ```typescript
-export const KEY = "YOUR_AZURE_KEY_HERE";
+export const KEY = "your-key";
 ```
 
-**Important:** Replace `YOUR_AZURE_KEY_HERE` with your actual Azure Speech Services API key.
+Replace `your-key` with your actual Azure Speech Service key.
 
 ### 4.2 Create `types.ts`
 
