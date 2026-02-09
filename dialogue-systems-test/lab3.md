@@ -112,6 +112,10 @@ export type DMEvents = SpeechStateExternalEvent | { type: "CLICK" } | { type: "D
 
 This is our main dialogue manager/machine file with the state machine logic.
 
+Replace `YOUR_REGION` with your Azure region (e.g., `northeurope`, `swedencentral` ...). Check two places:
+1. In the `endpoint` URL
+2. In the `azureRegion` setting
+
 **File location:** `Code/src/dm.ts`
 ```typescript
 import { assign, createActor, setup } from "xstate";
@@ -279,9 +283,6 @@ export function setupButton(element: HTMLButtonElement) {
 }
 ```
 
-Replace `YOUR_REGION` with your Azure region (e.g., `northeurope`, `swedencentral` ...). Check two places:
-1. In the `endpoint` URL
-2. In the `azureRegion` setting
 
 ### 4.4 Create `main.ts`
 
