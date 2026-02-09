@@ -1,8 +1,20 @@
-# Lab 3 | Basic dialogue management
+# Lab 3 | Basic dialogue management | Fixed (Only npm, no more yarn)
 
 ## Getting started with development environment
 
 ### Preflight step 1. Create Azure account and enable speech services
+
+Note:
+
+Node.js and npm should be installed on your system. Please check:
+```bash
+node -v
+```
+This should give an output, something like: v22.13.1
+```bash
+npm -v
+```
+This should give an output, something like: 11.8.0
 
 1. Apply for free student credits: https://azure.microsoft.com/en-us/free/students/. You should be able to login with your GU account.
 
@@ -24,32 +36,31 @@
 
 ### Preflight step 2. Run the example project
 
-1. Install [NodeJS](https://nodejs.org/en/download/) (LTS version) if you haven't already.
+1. Fork the example project on GitHub (this project): https://github.com/GU-CLASP/dialogue-systems-1-2026
 
-2. Fork the example project (this project): https://github.com/GU-CLASP/dialogue-systems-1-2026
-
-3. Before cloning, make sure you `Sync fork`
-
-   Clone your fork to your machine.
-
-4. Go to the `<name_of_your_fork>/labs/lab3/Code/` folder.
+2. Before cloning, make sure you `Sync fork` and pull the updates if you forked this project before this update (Feb 9)
+   Navigate to the directory where you want to work (your home directory by default):
    ```sh
-   cd <name_of_your_fork>/labs/lab3/Code/
+   cd
    ```
-
-5. Install all dependencies:
+   Clone your fork to your machine:
    ```sh
-   yarn
+   git clone https://github.com/GU-CLASP/dialogue-systems-1-2026.git
    ```
-   If you encounter build errors (e.g., YN0000: Failed with errors in 3s 419ms) during `yarn`, try a clean install:
+3. Go to the `<name_of_your_fork>/labs/lab3fixed/Code/` folder.
    ```sh
-   rm -rf node_modules .yarn .pnp.* yarn.lock
+   cd <name_of_your_fork>/labs/lab3fixed/Code/
    ```
-   then again:
-   ```sh
-   yarn
+4. Install all dependencies:
+   ```bash
+   npm install
    ```
-6. Create a file called `azure.ts` in `src/` folder:
+   ```bash
+   npm install xstate
+   npm install speechstate@latest
+   npm install @statelyai/inspect
+   ```
+5. Create a file called `azure.ts` in `src/` folder:
    ```sh
    cd src/
    ```
@@ -74,16 +85,37 @@
    ```
    (Note: Using `echo` command with a single ">" will overwrite the file! As a rule of thumb, be very careful when using this command! For example, `echo "src/azure.ts" > .gitignore` will overwrite everything inside ".gitignore" file!)
 
-7. Test the project:
-   ```sh
-   yarn dev
-   ```
+6. Replace `YOUR_REGION` sections inside `dm.ts` file with your Azure region (e.g., `northeurope`, `swedencentral`). Check two places:
+      1. In the `endpoint` URL
+      2. In the `azureRegion` setting
 
-8. Open the link that was shown, in your browser, e.g. http://localhost:5173/
+7. Run the development local server in `Code` directory:
+   ```bash
+   npm run dev
+   ```
+   `O + Enter` shortcut to open it in your default browser.
 
 9. Allow access to your microphone.
 
 10. When you unblock the pop-up window, and reload the page you will see the state inspector; this can be useful during development.
+
+11. Error handling:
+
+## `The requested module does not provide an export named 'AnyActorRef'`
+
+If you see this error for some reason Vite carrying over cache from your previous attempts, try and clear Vite's cache:
+```bash
+rm -rf node_modules/.vite
+npm run dev
+```
+
+## Package installation issues
+
+If you encounter dependency conflicts:
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
 
 ## Assignment
 
