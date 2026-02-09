@@ -1,64 +1,72 @@
-# Dialogue System Project Setup Guide
+# Lab 3 Setup From Scratch for Linux and WSL (Windows Subsystem for Linux) Users
 
-This guide will walk you through setting up a dialogue system project using Vite, XState, and Azure Speech Services.
+Instead of yarn (what we think is the problematic part), we will only try and use npm.
+
+Navigate to home folder (for us to easily troubleshoot when necessary):
+```bash
+cd
+```
 
 ## Prerequisites
 
-- Node.js and npm installed on your system
-- An Azure Speech Services account with a valid API key
-- A terminal/command line interface
+- Node.js and npm should be installed on your system. Please check:
+```bash
+node -v
+```
+This should give an output, something like: v22.13.1
+```bash
+npm -v
+```
+This should give an output, something like: 11.8.0
+
+- An Azure Speech Service KEY from any region
 
 ## Step 1: Create a New Vite Project
-
-Open your terminal and navigate to your home directory:
-```bash
-cd ~
-```
 
 Create a new Vite project using the vanilla TypeScript template:
 ```bash
 npm create vite@latest
 ```
 
-When prompted:
 - **Project name:** `Code`
 - **Framework:** Select `Vanilla`
 - **Variant:** Select `TypeScript`
+- **Experimental Features:** No
 
-Navigate into your new project:
+Navigate into the project:
 ```bash
 cd Code
 ```
 
 ## Step 2: Install Dependencies
 
-First, install the base dependencies that Vite created:
+First, we install the base dependencies that Vite created:
 ```bash
 npm install
 ```
 
-Then install the additional packages needed for the dialogue system:
+Then we install the additional packages needed for the lab:
 ```bash
 npm install xstate
 npm install speechstate@latest
 npm install @statelyai/inspect
 ```
 
-## Step 3: Clean Up Default Files
+## Step 3: We Clean Up Default Files
 
 Navigate to the `src` directory:
 ```bash
 cd src
 ```
 
-Remove the default Vite template files that we won't need:
+Remove the default Vite files that we won't need:
 ```bash
-rm counter.ts vite.svg
+rm -f *
 ```
 
 ## Step 4: Create Project Files
 
-Now we'll create the necessary files for our dialogue system. You can create these files using your preferred text editor.
+Now we will create the source files for our lab. You can create these files using your preferred text editor.
 
 ### 4.1 Create `azure.ts`
 
