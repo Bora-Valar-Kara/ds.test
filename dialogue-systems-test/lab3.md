@@ -31,6 +31,8 @@ npm create vite@latest
 - **Variant:** Select TypeScript
 - **Experimental Features:** No
 
+Quit using `Q + Enter` if/when vite automatically activates dev.
+
 Navigate into the project:
 ```bash
 cd Code
