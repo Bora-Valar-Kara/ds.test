@@ -29,7 +29,7 @@ Try F12 (or Fn + F12 if you prefer to use your function buttons that way). Or:
 |---------|------------------------|----------------|
 | Chromium-Based | `Ctrl` + `Shift` + `J` or `I` | `Cmd` + `Option` + `J` or `I`
 | Firefox-Based | `Ctrl` + `Shift` + `K` | `Cmd` + `Option` + `K`
-| Safari | :D | `Cmd` + `Option` + `C` | `F12` (or `Fn`+`F12`) |
+| Safari | :D | `Cmd` + `Option` + `C` |
 
 1) Now, try similar cases and reflect on the outcome:
    - Can you think of any names of fictional places, people or objects that are not recognized? (Keep your final project in mind!)
