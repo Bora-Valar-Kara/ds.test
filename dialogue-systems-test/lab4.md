@@ -31,6 +31,8 @@ Try F12 (or Fn + F12 if you prefer to use your function buttons that way). Or:
 | Firefox-Based | `Ctrl` + `Shift` + `K` | `Cmd` + `Option` + `K`
 | Safari | :D | `Cmd` + `Option` + `C` |
 
+Now, after your dialogue system activates ASR, check the data structure of `State context:` via clicking the arrows next to the Object in your `developer console`. Find where the `confidence` score is located. How is its value stored? How can you use/call that value via TypeScript in your projects?
+
 1) Now, try similar cases and reflect on the outcome:
    - Can you think of any names of fictional places, people or objects that are not recognized? (Keep your final project in mind!)
    - If not, can you try any scientific names for plants, animals, geologic terms, etc., or names for classic musical pieces and authors?
@@ -41,7 +43,7 @@ Try F12 (or Fn + F12 if you prefer to use your function buttons that way). Or:
 
 3) Think about how this problem, transcription of something we did not intent to say, could be solved. Why do you think recognition falters in the examples that you tried?
 
-4) Write a very brief (half-page) report on your experience with ASR for your case-study. Save it as `Lab3A.md` in the root directory of your project (or `.txt` or `.pdf`, just not a Word document).
+4) Write a very brief (half-page) report on your experience with ASR for your case-study. Save it as `lab4A.md` in the root directory of your project (or `.txt` or `.pdf`, just not a Word document).
 
 ### Part A-VG. Azure Custom Speech
 
@@ -50,7 +52,7 @@ Try F12 (or Fn + F12 if you prefer to use your function buttons that way). Or:
    - Train and deploy your model (enable content logging). Note the **Endpoint ID**.
 
 2) To test your model:
-   - Create a file `dm3.ts` which implements a very basic ASR test (analogous to `dm.ts` in this repository). Add the following to your `settings` object:
+   - Create a file `dm4.ts` which implements a very basic ASR test (analogous to `dm.ts` in this repository). Add the following to your `settings` object:
      ```javascript
      speechRecognitionEndpointId: "paste your Endpoint ID here",
      ```
