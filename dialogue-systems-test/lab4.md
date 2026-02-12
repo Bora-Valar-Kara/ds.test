@@ -1,26 +1,34 @@
-# Lab III. Tuning ASR and TTS
+# Lab 4 | Tuning ASR and TTS
 
-In this lab session you will practice styling TTS output using Speech Synthesis Markup Language (SSML) and tuning ASR. It is assumed that you have read the relevant literature on the subject before attempting to solve the assignments.
-
-> **⚠️ NB**
-> 
-> - For a **VG** point you need to do **either** Part A-VG or Part B-VG. You don't have to do both VG parts.
-> - If you have problems accessing your Azure account (namely, the portal and [Speech Studio](https://speech.microsoft.com/)) contact Vlad immediately and we work out the solution. In the meanwhile you can team up with your classmate and work on the assignment together.
+In this lab session you will practice styling TTS output using Speech Synthesis Markup Language (SSML) and tuning ASR. It is assumed that you have read the relevant literature on the subject before attempting to solve the assignments:
 
 For reference:
 - Speech Synthesis Markup Language (SSML) Version 1.0, W3C Recommendation 7 September 2004, http://www.w3.org/TR/speech-synthesis/
 - Azure Text-to-Speech: [Docs](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/index-text-to-speech), [Speech Studio](https://speech.microsoft.com/) (audio content creation)
 - Azure Speech-to-Text: [Docs](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/index-speech-to-text), [Speech Studio](https://speech.microsoft.com/) (custom speech)
 
+> **⚠️ NB**
+> 
+> - For a **VG** point you need to do **either** Part A-VG or Part B-VG. You don't have to do both VG parts.
+> - If you have problems accessing your Azure account (namely, the portal and [Speech Studio](https://speech.microsoft.com/)) contact Vlad/Bora/Tal/Tom immediately and we work out the solution. You can ideally use Canvas' discussion section so that we see every possible error and prepare a solution for everyone and for future reference in this course. In the meanwhile you can team up with your classmate and work on the assignment together.
+
 ## Part A: Hard cases for Speech Recognition
 
-You may have noticed that the automatic speech recognizer does not always transcribe what we were expecting. Take a look at the following. After trying a couple of times, the name of Hungarian composer _Franz Listz_ and the scientific name of the Magnolia tree, _Magnolia liliflora_, were detected. The accent of the person speaking may play a role in recognition.
+You may have noticed that the automatic speech recognizer we used so far `(Reference: Lab 3 Project)` does not always transcribe what we were expecting. Take a look at the following. After trying a couple of times, the name of Hungarian composer _Franz Listz_ and the scientific name of the Magnolia tree, _Magnolia liliflora_, were detected. The accent of the person speaking may play a role in recognition.
 
 - First attempt: { confidence: 0.52745277, utterance: "Composer. France List" }
 - Fourth attempt: { confidence: 0.75028044, utterance: "Composer Franz Liszt" }
 
 - First try: { confidence: 0.661772, utterance: "The plant is Magnolia Lily flora"}
 - After some attempts: { confidence: 0.7240172, utterance: "The plant is Magnolia lilliflora"}
+
+Note: Explore the data structure of our `context`: `State context`. An easy way to check that is to tinker with your browser's `developer console`. You may be familiar with the console given that you needed to use it for debugging your Lab 3 project. If you are not, there are some key combinations you can try to open the `developer console` on your OS (Operating System) and your browser type for your reference below:
+
+| Browser | Windows/Linux Shortcut | macOS Shortcut |
+|---------|------------------------|----------------|
+| Chromium-Based | `Ctrl` + `Shift` + `J` or `I` | `Cmd` + `Option` + `J` or `I` | `F12` (or `Fn`+`F12`) |
+| Firefox-Based | `Ctrl` + `Shift` + `K` | `Cmd` + `Option` + `K` | `F12` (or `Fn`+`F12`) |
+| Safari | :D | `Cmd` + `Option` + `C` | `F12` (or `Fn`+`F12`) |
 
 1) Now, try similar cases and reflect on the outcome:
    - Can you think of any names of fictional places, people or objects that are not recognized? (Keep your final project in mind!)
