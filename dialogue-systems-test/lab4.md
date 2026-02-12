@@ -24,10 +24,11 @@ You may have noticed that the automatic speech recognizer we used so far `(Refer
 
 Note: Explore the data structure of our `context`: `State context`. An easy way to check that is to tinker with your browser's `developer console`. You may be familiar with the console given that you needed to use it for debugging your Lab 3 project. If you are not, there are some key combinations you can try to open the `developer console` on your OS (Operating System) and your browser type for your reference below:
 
+Try F12 (or Fn + F12 if you prefer to use your function buttons that way). Or:
 | Browser | Windows/Linux Shortcut | macOS Shortcut |
 |---------|------------------------|----------------|
-| Chromium-Based | `Ctrl` + `Shift` + `J` or `I` | `Cmd` + `Option` + `J` or `I` | `F12` (or `Fn`+`F12`) |
-| Firefox-Based | `Ctrl` + `Shift` + `K` | `Cmd` + `Option` + `K` | `F12` (or `Fn`+`F12`) |
+| Chromium-Based | `Ctrl` + `Shift` + `J` or `I` | `Cmd` + `Option` + `J` or `I`
+| Firefox-Based | `Ctrl` + `Shift` + `K` | `Cmd` + `Option` + `K`
 | Safari | :D | `Cmd` + `Option` + `C` | `F12` (or `Fn`+`F12`) |
 
 1) Now, try similar cases and reflect on the outcome:
