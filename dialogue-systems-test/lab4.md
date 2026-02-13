@@ -76,7 +76,7 @@ Take a greater effort and take it to next level. You can experiment with adding 
 Sources for inspiration:
 - [California Dreaming](https://www.youtube.com/watch?v=IZYoGj8D8pY) (386DX art project).
 - [Without Me](https://raw.githubusercontent.com/vladmaraev/rasa101/master/withoutme.m4a), by Robert Rhys Thomas in 2019 for this course.
-- Bad Guy, by Fang Yuan in 2020 for this course.
+- [[file:lab4/media/partC_badguy_voiced.mp3][Bad Guy]], by Fang Yuan in 2020 for this course.
 
 ## Submission
 
